@@ -1,0 +1,45 @@
+module tb;
+
+    reg clk = 0;
+    reg start = 0;
+    reg [7:0] txin;
+    wire [7:0] rxout;
+    wire txdone, rxdone;//
+    wire txrx;
+
+    // Instantiate top module
+    top uut (
+        .clk(clk),
+        .start(start),
+        .txin(txin),
+        .tx(txrx),
+        .rx(txrx),
+        .rxout(rxout),
+        .txdone(txdone),
+        .rxdone(rxdone)
+    );
+
+    // Clock generation: 100 MHz
+    always #5 clk = ~clk;
+
+    initial begin
+        start = 0;
+        txin = 8'h00;
+        @(posedge clk);
+
+        repeat (5) begin
+            @(posedge clk);
+            txin = $urandom_range(0, 255); // Random data
+            start = 1;
+            @(posedge clk);
+            start = 0;
+
+            wait (txdone);
+            wait (rxdone);
+            #1000; // Optional delay between bytes
+        end
+
+        $stop;
+    end
+endmodule
+
