@@ -87,4 +87,4 @@ Electronics & Communication Engineering
 
 Focus areas: Digital Design, Signal Processing, Embedded Systems
 
-👉 Do you want me to also add a self-checking testbench log output example (with $display showing PASS/FAIL) inside the README? That looks very polished on GitHub.
+
